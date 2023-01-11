@@ -1,5 +1,5 @@
 //api key for openweather
-var APIKey = "9695d701e522f2ef687386464a455171"
+var key = "fd42e5c39841481b33ef3122a8fc8959"
 
 //document variables
 
@@ -19,8 +19,8 @@ var humidity = document.querySelector("#humidity")
 search.addEventListener('click', () => {
     
     let city =cityInput.value
-
-    var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9695d701e522f2ef687386464a455171&units=imperial`
+    let key = "fd42e5c39841481b33ef3122a8fc8959"
+    var weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=imperial`
     fetch(weatherURL).then(function (response) {
         return response.json();
     }).then(function (data) {
