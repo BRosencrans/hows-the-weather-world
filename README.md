@@ -11,11 +11,13 @@ This is a simple weather forecast web app, that uses bootstrap and the open weat
 
 
 ## Screenshots
+![Empty page](https://raw.githubusercontent.com/BRosencrans/weather-information-citys/main/assets/screenshots/pics/forecast-01.png)
+![Page with weather data](https://raw.githubusercontent.com/BRosencrans/weather-information-citys/main/assets/screenshots/pics/forecast-02.png)
 
 
+## Local Storeage Demo
 
-##Demo
-
+![local storage demo](https://raw.githubusercontent.com/BRosencrans/weather-information-citys/main/assets/screenshots/gifs/local-save-demo.gif)
 
 
 ## Credits
