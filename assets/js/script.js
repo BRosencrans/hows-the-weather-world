@@ -13,6 +13,44 @@ var temp = document.querySelector("#temp")
 var wind = document.querySelector("#wind")
 var humidity = document.querySelector("#humidity")
 
+//local storage on page load
+if (!localStorage.getItem('cs')) {
+    var cs = []
+    localStorage.setItem('cs', JSON.stringify(cs))
+} else{
+    var cs = JSON.parse(localStorage.getItem('cs'))
+    for (let i = 0; i < cs.length; i++) {
+        savedCitys(cs[i])
+    }
+}
+
+function savedCitys(input) {
+    var cs = JSON.parse(localStorage.getItem('cs'))
+    if (cs.indexOf(input)===-1){
+        cs.push(input)
+        localStorage.setItem('cs', JSON.stringify(cs))
+    }
+//stored citys element
+    var savedCity = document.createElement('button')
+    savedCity.textContent = input
+    savedCity.addEventListener('click', () => {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${key}&units=imperial`).then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log(data);
+            var todaysDate = dayjs().format("MM/DD/YYYY")
+            currentCity.textContent= `${data.name}`
+            theDate.textContent = `Today is: ${todaysDate}`
+            weatherPic.innerHTML =`<img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png">`
+            temp.textContent = `It's Currently ${data.main.temp}°F out`
+            wind.textContent =`The Wind speed is ${data.wind.speed} knots`
+            humidity.textContent =`The Humidity is currently ${data.main.humidity}%`
+            fiveDayForecast(data.name)
+        });
+    })
+   
+    pastCitys.append(savedCity)
+}
 //adds five day forecast on button click
 function fiveDayForecast(userCity) {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${userCity}&appid=${key}&units=imperial`).then(function (response) {
@@ -58,7 +96,7 @@ search.addEventListener('click', () => {
         wind.textContent =`The Wind speed is ${data.wind.speed} knots`
         humidity.textContent =`The Humidity is currently ${data.main.humidity}%`
         fiveDayForecast(data.name)
-      
+        savedCitys(data.name)
     });
 
 })
